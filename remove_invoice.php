@@ -2,4 +2,5 @@
 // muuttuja
 $invoice_item_id = 123;
 // poisto;
-$sql = "DELETE FROM invoice_item WHERE invoice_item_id = :invoice_item_id";
+$sql = "DELETE FROM chinook WHERE invoice_item_id = :invoice_item_id";
+?>
