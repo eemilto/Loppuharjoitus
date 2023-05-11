@@ -1,20 +1,19 @@
 <?php
-
-// Tarkista, että playlist_id on määritetty
-$playlist_id = $_GET["playlist_id"];
+$playlist_id = 1;
 
 // Yhdistä tietokantaan
 $pdo = new PDO('mysql:host=localhost;dbname=chinook', 'root', '');
 
 // Valmistele ja suorita kysely
-$stmt = $pdo->prepare('SELECT tracks.name, tracks.composer FROM tracks WHERE tracks.name = :playlist_id');
+$stmt = $pdo->prepare('SELECT Name, Composer FROM tracks, playlist_track WHERE playlist_track.PlaylistId = :playlist_id AND playlist_track.TrackId = tracks.TrackId');
 $stmt->bindParam(":playlist_id", $playlist_id);
 $stmt->execute();
 
 // Tulosta kappaleiden tiedot
-$allRows = $stmt->fetchAll();
+$allRows = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
 foreach($allRows as $row) {
-  echo $row["TrackId"];
+  echo "<br>". $row["Composer"];
+  echo "<br>"."<h3>".$row["Name"]."</h3>";
 }
 ?>
