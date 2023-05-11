@@ -2,10 +2,10 @@
 //Määrittely
 $artist_id = 12;
 
-// Avaa tietokantayhteys
+// Yhteys
 $pdo = new PDO("mysql:host=localhost;dbname=chinook", "root", "");
 
-// Haetaan artistin kaikki kappaleet tietokannasta
+// Artistin kappaleet
 $stmt = $pdo->prepare("
     SELECT tracks.Name
     FROM tracks
@@ -16,10 +16,10 @@ $stmt = $pdo->prepare("
 $stmt->execute([$artist_id]);
 $tracks = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// Sulje tietokantayhteys
+// Yhteyden sulkeminen
 $pdo = null;
 
-// Palauta kappaleet JSON-muodossa
+// JSON
 header('Content-Type: application/json');
 print_r(json_encode($tracks));
 ?>
